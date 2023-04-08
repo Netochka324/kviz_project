@@ -9,16 +9,17 @@ class EmailForm(forms.Form):
             'placeholder': 'Введите имя'
         }),
     )
+    phone = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Введите phone number'
+        }),
+    )
     email = forms.CharField(
         max_length=50,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Введите email'
         }),
-    )
-    message = forms.CharField(
-        widget=forms.Textarea(attrs={
-            'class': 'form-control',
-            'placeholder': 'Дополнительная информация'
-        })
     )

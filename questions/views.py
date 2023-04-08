@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Question, Message, Quiz
+from .models import Question, Message, Quiz, Answer
 from .forms import EmailForm
 from django.http import HttpResponseRedirect
 
@@ -7,13 +7,14 @@ from django.http import HttpResponseRedirect
 def questions_index(request):
     quiz_all = Quiz.objects.all()
     context = {"quiz_all": quiz_all}
-    return render(request, "questions_index.html", context)
+    return render(request, 'questions_index.html', context)
 
 
-def questions_detail(request, id):
-    quest_quiz = Question.objects.get(id=id)
-    context = {'quest_quiz': quest_quiz}
-    return render(request, "questions_detail.html", context)
+def questions_detail(request, pk):
+    quest_quiz = Question.objects.get(pk=pk)
+    answ_quiz = Answer.objects.get(pk=pk)
+    context = {'quest_quiz': quest_quiz, 'answ_quiz': answ_quiz}
+    return render(request, 'questions_detail.html', context)
 
 
 def contacts(request):
@@ -32,4 +33,4 @@ def contacts(request):
     context = {
         'messages': messages,
         'form': form}
-    return render(request, "contacts.html", context)
+    return render(request, 'contacts.html', context)

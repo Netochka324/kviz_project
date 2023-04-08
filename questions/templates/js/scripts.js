@@ -1,69 +1,17 @@
-const data = [
-    {
-        question: 'Сколько будет 2 + 3 ?',
-        answers: [
-            {
-                id: '1',
-                value: '4',
-                isCorrect: false
-            },
-            {
-                id: '2',
-                value: '5',
-                isCorrect: true
-            },
-            {
-                id: '3',
-                value: '6',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        question: 'Антоним слову горячо',
-        answers: [
-            {
-                id: '4',
-                value: 'Жарко',
-                isCorrect: false
-            },
-            {
-                id: '5',
-                value: 'Холодно',
-                isCorrect: true
-            }
-        ]
-    },
-    {
-        question: 'Сколько планет в солнечной системе ?',
-        answers: [
-            {
-                id: '6',
-                value: '7',
-                isCorrect: false
-            },
-            {
-                id: '7',
-                value: '8',
-                isCorrect: true
-            }
-        ]
-    }
-]
-
 const quiz = document.getElementById('quiz')
 const quizQuestions = document.getElementById('quiz-questions')
 const quizIndicator = document.getElementById('quiz-indicator')
 const quizResult = document.getElementById('quiz-results')
 const btnNext = document.getElementById('btn-next')
 const btnRestart = document.getElementById('btn-restart')
-
+const quest = document.getElementById('quiz-quest')
+const answers = document.getElementById('quiz-answ')
 let localResults = {}
+console.log(answers)
 
 const renderIndicator = (quizStep) => {
-    quizIndicator.innerHTML = `${quizStep}/${data.length}`
+    quizIndicator.innerHTML = `${quizStep}/${quest.length}`
 }
-
 
 const renderQuestion = (index) => {
     renderIndicator(index + 1)
@@ -71,7 +19,7 @@ const renderQuestion = (index) => {
     btnNext.disabled = true
 
     const renderAnswers = () =>
-        data[index]
+        quizQuestions[index]
             .answers
             .map((answer) =>
                 `
@@ -87,7 +35,7 @@ const renderQuestion = (index) => {
 
     quizQuestions.innerHTML = `
     <div class="quiz-question-item">
-        <div class="quiz-question-item-qestion">${data[index].question}</div>
+        <div class="quiz-question-item-qestion">${quest[index].question}</div>
         <ul class="quiz-question-item-answer">${renderAnswers()}</ul>
     </div>
     `
@@ -109,15 +57,15 @@ const renderResults = () => {
     }
 
     const getAnswers = (index) =>
-        data[index]
+        quest[index]
             .answers
             .map((answer) => `<li class="${checkIsCorrect(answer, index)}">${answer.value}</li>`)
             .join('')
 
-    data.forEach((question, index) => {
+    quest.forEach((question, index) => {
         result += `
         <div class="quiz-result-item">
-            <div class="quiz-result-item-qestion">${question.question}</div>
+            <div class="quiz-result-item-qestion">${quest.question}</div>
             <ul class="quiz-result-item-answer">${getAnswers(index)}</ul>
         </div>
         `
@@ -136,7 +84,7 @@ quiz.addEventListener('change', (event) => {
 quiz.addEventListener('click', (event) => {
     if (event.target.classList.contains('btn-next')) {
         const nextQuestionIndex = Number(quizQuestions.dataset.currentStep) + 1
-        if (nextQuestionIndex === data.length) {
+        if (nextQuestionIndex === quest.length) {
             quizQuestions.classList.add('questions--hidden')
             quizIndicator.classList.add('quiz--hidden')
             btnNext.style.visibility='hidden'

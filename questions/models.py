@@ -31,6 +31,7 @@ class Answer(models.Model):
 
 class Message(models.Model):
     name = models.CharField(max_length=30)
+    phone = models.CharField(max_length=15)
     email = models.CharField(max_length=30)
     created_on = models.DateTimeField(auto_now_add=True)
 

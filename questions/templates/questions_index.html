@@ -2,12 +2,12 @@
 {% block page_content %}
 
 <div class="col-md-8 offset-md-2">
-  <h1>Квизы на выбор</h1>
+  <h3>Квизы на выбор</h3>
 
   <hr>
 
   {% for quiz in quiz_all %}
-  <h3><a href="{% url 'questions_detail' quiz.pk%}">{{ quiz.quiz }}</a></h3>
+  <h3><a href="{% url 'questions_detail' quiz.id%}">{{ quiz.quiz }}</a></h3>
   {% endfor %}
 </div>
 
